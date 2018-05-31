@@ -11,6 +11,7 @@ $factory->define(App\Usuario::class, function (Faker $faker) {
         'nascimento' => $faker->dateTimeThisCentury->format('Y-m-d'),
         'cpf' => $faker->cpf(false),
         'senha' => $faker->password(),
-        'foto' => $faker->imageUrl(500, 500)
+        'foto' => $faker->imageUrl(500, 500),
+        'status' => 'a'
     ];
 });
