@@ -8,9 +8,9 @@
 
     <title>CRUD de Usuários</title>
 
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ url('css/app.css') }}">
 
-    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
   </head>
   <body>
     <div class="container">
