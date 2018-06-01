@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Usuario;
 
 class UsuarioCtrl extends Controller
 {
@@ -13,7 +14,9 @@ class UsuarioCtrl extends Controller
      */
     public function index()
     {
-        //
+        return view('usuarios.listar', [
+          'usuarios' => Usuario::orderBy('id', 'desc')->get()
+        ]);
     }
 
     /**

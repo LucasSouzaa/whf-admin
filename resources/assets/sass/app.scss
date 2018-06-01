@@ -19,6 +19,34 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.dataTables_wrapper {
+  width: 100%;
+}
+
+.dataTables_filter {
+  margin-top: -40px;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+table img {
+  max-width: 80px;
+}
+
+table .acoes {
+  width: 60px;
+}
+
+table a {
+  padding: 5px;
+}
+
+table label {
+  margin-top: 10px;
+}
+
 // How TO - Toggle Switch
 // https://www.w3schools.com/howto/howto_css_switch.asp
 .switch {

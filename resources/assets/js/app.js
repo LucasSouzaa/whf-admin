@@ -15,8 +15,39 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//
+// const app = new Vue({
+//     el: '#app'
+// });
 
-const app = new Vue({
-    el: '#app'
+
+$(function() {
+    $('table').DataTable({
+      'aaSorting': [],
+      'columns': [
+        {'orderable': false },
+        null,
+        null,
+        null,
+        {'orderable': false }
+      ],
+      'bLengthChange': false,
+      'pageLength': 5,
+      'language': {
+          'zeroRecords': 'Nenhum resultado encontrado!',
+          'info': 'Página _PAGE_ de _PAGES_',
+          'infoEmpty': 'Nenhum registro disponível',
+          'infoFiltered': '(filtrado de _MAX_ registros)',
+          'loadingRecords': 'Carregando...',
+          'processing': 'Processando...',
+          'search': 'Busca:',
+          'paginate': {
+            'first': 'Primeiro',
+            'last': 'Último',
+            'next': 'Próximo',
+            'previous': 'Anterior'
+          },
+      }
+    });
 });
