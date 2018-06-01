@@ -26,7 +26,7 @@ class UsuarioCtrl extends Controller
      */
     public function create()
     {
-        //
+        return view('usuarios.cadastrar');
     }
 
     /**
