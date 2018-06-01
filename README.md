@@ -1,19 +1,23 @@
-## Executar os comandos
+# Executar os comandos
 
-Instalação das depências do composer
+## Instalação das depências do composer
 
 `$ composer install`
 
-Gerando chave de encriptação da aplicação
+## Criar arquivo de configuração
+
+`$ cp .env.example .env`
+
+## Gerando chave de encriptação da aplicação
 
 `$ php artisan key:generate`
 
-Configurar a conexão do banco no arquivo .env
+## Configurar a conexão do banco no arquivo .env
 
-Criação das tabelas e seed com usuários falsos
+## Criação das tabelas e seed com usuários falsos
 
 `$ php artisan migrate --seed`
 
-Execução do projeto
+## Execução do projeto
 
 `$ php artisan serve`
