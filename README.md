@@ -1,9 +1,19 @@
 ## Executar os comandos
 
-Criação das tabelas
+Instalação das depências do composer
 
-`$ php artisan migrate`
+`$ composer install`
 
-Criando usuários de testes
+Gerando chave de encriptação da aplicação
 
-`$ php artisan db:seed`
+`$ php artisan key:generate`
+
+Configurar a conexão do banco no arquivo .env
+
+Criação das tabelas e seed com usuários falsos
+
+`$ php artisan migrate --seed`
+
+Execução do projeto
+
+`$ php artisan serve`
