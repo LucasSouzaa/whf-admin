@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('bootstrap-validator');
 
 window.Vue = require('vue');
 
@@ -23,6 +24,9 @@ window.Vue = require('vue');
 
 
 $(function() {
+    $('#cpf').mask('000.000.000-00', {reverse: true});
+    $('#nascimento').mask('00/00/0000');
+
     $('table').DataTable({
       'aaSorting': [],
       'columns': [
