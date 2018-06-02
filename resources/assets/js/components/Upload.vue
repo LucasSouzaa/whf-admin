@@ -24,6 +24,10 @@
         props: ['preview', 'url'],
         mounted: function () {
             this.trocaImagem(this.preview);
+
+            if (this.preview) {
+                $('#file').attr('required', false);
+            }
         },
         methods: {
             arquivoSelecionado(e) {

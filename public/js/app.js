@@ -64105,6 +64105,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['preview', 'url'],
     mounted: function mounted() {
         this.trocaImagem(this.preview);
+
+        if (this.preview) {
+            $('#file').attr('required', false);
+        }
     },
     methods: {
         arquivoSelecionado: function arquivoSelecionado(e) {
