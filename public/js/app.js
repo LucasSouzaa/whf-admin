@@ -64102,7 +64102,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['url'],
+    props: ['preview', 'url'],
+    mounted: function mounted() {
+        this.trocaImagem(this.preview);
+    },
     methods: {
         arquivoSelecionado: function arquivoSelecionado(e) {
             this.arquivo = e.target.files[0];
@@ -64113,18 +64116,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var loading = $('.fa-spin');
             loading.removeClass('d-none');
 
-            var img = $('#preview img');
-            img.attr('src', '');
+            var self = this;
+            self.trocaImagem('');
 
             axios.post(this.url, fd).then(function (res) {
-                var foto = res.data.foto;
-
-                $('input[name="foto"]').val(foto);
-                img.attr('src', foto);
+                self.trocaImagem(res.data.foto);
                 loading.addClass('d-none');
             }).catch(function () {
                 loading.addClass('d-none');
             });
+        },
+        trocaImagem: function trocaImagem(src) {
+            $('#preview img').attr('src', src);
+            $('input[name="foto"]').val(src);
         }
     }
 });

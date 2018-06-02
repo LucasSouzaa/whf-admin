@@ -84,7 +84,8 @@
     </div>
 
     <div class="form-group upload">
-        <upload-component url="{{ config('urls.api') . 'api/upload' }}"></upload-component>
+        <upload-component url="{{ config('urls.api') . 'api/upload' }}"
+        preview="{{ isset($usuario) ? $usuario->foto : '' }}"></upload-component>
     </div>
 
     <div class="form-group">
