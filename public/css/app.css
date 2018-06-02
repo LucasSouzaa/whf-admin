@@ -14046,6 +14046,10 @@ table.dataTable td {
   margin-top: 10px;
 }
 
+.upload {
+  height: 150px;
+}
+
 table img {
   max-width: 80px;
 }
