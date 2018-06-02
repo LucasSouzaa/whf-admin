@@ -17,9 +17,51 @@ class UsuarioCtrl extends Controller
      */
     public function index()
     {
-        return view('usuarios.listar', [
-          'usuarios' => Usuario::orderBy('id', 'desc')->get()
-        ]);
+        if (request()->ajax()) {
+            $length = request()->get('length');
+            $start = request()->get('start');
+            $order = request()->get('order')[0];
+            $column = $order['column'];
+            $dir = $order['dir'];
+            $search = request()->get('search')['value'];
+            $colunas = ['foto', 'nome', 'email', 'cpf'];
+
+            $query = Usuario::limit($length)->offset($start);
+
+            if ($order) {
+                $query->orderBy($colunas[$column], $dir);
+            } else {
+                $query->latest();
+            }
+
+            if ($search) {
+                $query->where('nome', 'like', "%$search%");
+                $query->orWhere('email', 'like', "%$search%");
+                $query->orWhere('cpf', 'like', '%' . preg_replace('/[.,-]/', '', $search) . '%');
+            }
+
+            $usuarios = $query->get();
+            $data = [];
+
+            foreach ($usuarios as $usuario) {
+                $data[] = [
+                    '<img src="' . $usuario->foto . '"' . '>',
+                    $usuario->nome,
+                    $usuario->email,
+                    $usuario->cpf,
+                    view('usuarios.acoes')->with('usuario', $usuario)->render()
+                ];
+            }
+
+            return response()->json([
+                'draw' => request()->get('draw'),
+                'recordsTotal' => count($usuarios),
+                'recordsFiltered' => Usuario::count(),
+                'data' => $data
+            ]);
+        }
+
+        return view('usuarios.listar-ajax');
     }
 
     /**

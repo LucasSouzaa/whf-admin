@@ -57,12 +57,18 @@ $(function() {
             'next': 'Próximo',
             'previous': 'Anterior'
           },
+      },
+      'processing': true,
+      'serverSide': true,
+      'ajax': {
+          'url': baseUrl + '/usuarios',
+          'dataType': 'json'
       }
     });
 
     var modal = $('#modal');
 
-    $('.excluir').click(function (e) {
+    $(document).on('click', '.excluir', function (e) {
         e.preventDefault();
 
         modal.modal('toggle');
@@ -74,7 +80,7 @@ $(function() {
         location.reload();
     });
 
-    $('input[type="checkbox"]').change(function () {
+    $(document).on('change', 'input[type="checkbox"]', function () {
         var id = $(this).val();
         var status = $(this).is(':checked') ? 'a' : 'i';
 
