@@ -9,12 +9,12 @@
     <title>CRUD de Usuários</title>
 
     <link rel="stylesheet" href="{{ url('css/app.css') }}">
-
-    <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
   </head>
   <body>
-    <div class="container">
+    <div id="app" class="container">
         @yield('content')
     </div>
+
+    <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
   </body>
 </html>
