@@ -17,3 +17,13 @@ Route::get('/', function () {
 
 Route::post('usuarios/updateStatus', 'UsuarioCtrl@updateStatus');
 Route::resource('usuarios', 'UsuarioCtrl');
+
+Route::get('login', function () {
+    return view('login');
+})->name('login');
+
+Route::prefix('auth')->group(function () {
+    Route::post('/', ['uses' => 'AuthCtrl@login']);
+    Route::get('home', ['middleware' => 'auth', 'uses' => 'AuthCtrl@home'])->name('auth.home');
+    Route::get('logout', ['uses' => 'AuthCtrl@logout'])->name('logout');
+});
