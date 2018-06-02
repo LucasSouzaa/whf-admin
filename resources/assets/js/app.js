@@ -69,8 +69,18 @@ $(function() {
         $('#confirma').data('id', $(this).data('id'));
     });
 
-     $('#confirma').click(function () {
+    $('#confirma').click(function () {
         axios.delete(baseUrl + '/usuarios/' + $(this).data('id'));
         location.reload();
-     });
+    });
+
+    $('input[type="checkbox"]').change(function () {
+        var id = $(this).val();
+        var status = $(this).is(':checked') ? 'a' : 'i';
+
+        axios.post(baseUrl + '/usuarios/updateStatus', {
+            id: id,
+            status: status
+        });
+    });
 });

@@ -140,4 +140,16 @@ class UsuarioCtrl extends Controller
     {
         Usuario::destroy($id);
     }
+
+    public function updateStatus()
+    {
+        $id = request()->post('id');
+        $status = request()->post('status');
+
+        if ($id && $status) {
+            $usuario = Usuario::find($id);
+            $usuario->status = $status;
+            $usuario->save();
+        }
+    }
 }

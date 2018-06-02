@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('usuarios/updateStatus', 'UsuarioCtrl@updateStatus');
 Route::resource('usuarios', 'UsuarioCtrl');
