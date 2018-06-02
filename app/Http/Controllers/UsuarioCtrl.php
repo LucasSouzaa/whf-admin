@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Usuario;
+use App\Rules\CpfUnico;
 use Carbon\Carbon;
 
 class UsuarioCtrl extends Controller
@@ -42,7 +44,7 @@ class UsuarioCtrl extends Controller
             'nome' => 'required|string',
             'email' => 'required|email|unique:usuarios',
             'nascimento' => 'required|date_format:d/m/Y',
-            'cpf' =>  'required|unique:usuarios',
+            'cpf' => ['required', new CpfUnico],
             'senha' => 'required|string|min:6|confirmed',
             'foto' => 'required|url'
         ]);
@@ -51,7 +53,7 @@ class UsuarioCtrl extends Controller
             'nome' => $form['nome'],
             'email' => $form['email'],
             'nascimento' => Carbon::createFromFormat('d/m/Y', $form['nascimento'])->format('Y-m-d'),
-            'cpf' => preg_replace( '/[^0-9]/is', '', $form['cpf']),
+            'cpf' => cleanCpf($form['cpf']),
             'senha' => bcrypt($form['senha']),
             'foto' => $form['foto']
         ]);
@@ -91,7 +93,41 @@ class UsuarioCtrl extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputs = [
+            'nome' => 'required|string',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('usuarios')->ignore($id)
+            ],
+            'nascimento' => 'required|date_format:d/m/Y',
+            'cpf' => ['required', new CpfUnico(['ignore' => $id])],
+            'foto' => 'required|url',
+            'status' => 'required'
+        ];
+
+        if (request()->post('senha')) {
+            $inputs['senha'] = 'required|string|min:6|confirmed';
+        }
+
+        $form = request()->validate($inputs);
+
+        $usuario = Usuario::find($id);
+
+        $usuario->nome = $form['nome'];
+        $usuario->email = $form['email'];
+        $usuario->nascimento = Carbon::createFromFormat('d/m/Y', $form['nascimento'])->format('Y-m-d');
+        $usuario->cpf = cleanCpf($form['cpf']);
+        $usuario->foto = $form['foto'];
+        $usuario->status = $form['status'];
+
+        if (isset($form['senha'])) {
+            $usuario->senha = bcrypt($form['senha']);
+        }
+
+        $usuario->save();
+
+        return redirect()->route('usuarios.index');
     }
 
     /**

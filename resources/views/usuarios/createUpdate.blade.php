@@ -61,6 +61,38 @@
       <div class="help-block with-errors"></div>
     </div>
 
+    @isset ($usuario)
+
+    <div class="form-group">
+      {{ Form::label('senha', 'Nova Senha') }}
+      {{ Form::password('senha', [
+          'class' => 'form-control',
+          'data-minlength' => '6',
+          'data-error' => 'A senha deve conter no mínimo 6 dígitos'])
+      }}
+      <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group">
+      {{ Form::label('senha_confirmation', 'Confirme a Senha') }}
+      {{ Form::password('senha_confirmation', [
+          'class' => 'form-control',
+          'data-match' => '#senha',
+          'data-match-error' => 'As senhas não são iguais'])
+      }}
+      <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group">
+      {{ Form::label('status', 'Status') }}
+      {{ Form::select('status', ['a' => 'Ativo', 'i' => 'Inativo'], $usuario->status,
+            ['class' => 'form-control', 'required' => true])
+      }}
+      <div class="help-block with-errors"></div>
+    </div>
+
+    @else
+
     <div class="form-group">
       {{ Form::label('senha', 'Senha') }}
       {{ Form::password('senha', [
@@ -82,6 +114,8 @@
       }}
       <div class="help-block with-errors"></div>
     </div>
+
+    @endisset
 
     <div class="form-group upload">
         <upload-component url="{{ config('urls.api') . 'api/upload' }}"
