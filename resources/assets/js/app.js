@@ -21,12 +21,14 @@ window.Vue = require('vue');
 
 Vue.component('upload-component', require('./components/Upload.vue'));
 
-const app = new Vue({
+var app = new Vue({
     el: '#app'
 });
 
 
 $(function() {
+    var baseUrl = $('#baseUrl').val();
+
     $('#cpf').mask('000.000.000-00', {reverse: true});
     $('#nascimento').mask('00/00/0000');
 
@@ -57,4 +59,18 @@ $(function() {
           },
       }
     });
+
+    var modal = $('#modal');
+
+    $('.excluir').click(function (e) {
+        e.preventDefault();
+
+        modal.modal('toggle');
+        $('#confirma').data('id', $(this).data('id'));
+    });
+
+     $('#confirma').click(function () {
+        axios.delete(baseUrl + '/usuarios/' + $(this).data('id'));
+        location.reload();
+     });
 });

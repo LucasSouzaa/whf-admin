@@ -15,6 +15,7 @@
         @yield('content')
     </div>
 
+    <input type="hidden" id="baseUrl" value="{{ url('/') }}">
     <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
   </body>
 </html>

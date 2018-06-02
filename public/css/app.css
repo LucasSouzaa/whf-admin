@@ -14055,7 +14055,8 @@ table img {
 }
 
 table .acoes {
-  width: 60px;
+  float: right;
+  width: 95px;
 }
 
 table a {
@@ -14071,6 +14072,7 @@ table label {
   display: inline-block;
   width: 30px;
   height: 14px;
+  margin-right: 5px;
 }
 
 .switch input {

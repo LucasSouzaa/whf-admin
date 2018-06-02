@@ -138,6 +138,6 @@ class UsuarioCtrl extends Controller
      */
     public function destroy($id)
     {
-        //
+        Usuario::destroy($id);
     }
 }
