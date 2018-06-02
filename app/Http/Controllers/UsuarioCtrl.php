@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use Carbon\Carbon;
 
 class UsuarioCtrl extends Controller
 {
@@ -26,7 +27,7 @@ class UsuarioCtrl extends Controller
      */
     public function create()
     {
-        return view('usuarios.cadastrar');
+        return view('usuarios.createUpdate');
     }
 
     /**
@@ -37,7 +38,26 @@ class UsuarioCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form = request()->validate([
+            'nome' => 'required|string',
+            'email' => 'required|email|unique:usuarios',
+            'nascimento' => 'required|date_format:d/m/Y',
+            'cpf' =>  'required|unique:usuarios',
+            'senha' => 'required|string|min:6|confirmed',
+            'foto' => 'required|url'
+        ]);
+
+        $usuario = new Usuario([
+            'nome' => $form['nome'],
+            'email' => $form['email'],
+            'nascimento' => Carbon::createFromFormat('d/m/Y', $form['nascimento'])->format('Y-m-d'),
+            'cpf' => preg_replace( '/[^0-9]/is', '', $form['cpf']),
+            'senha' => bcrypt($form['senha']),
+            'foto' => $form['foto']
+        ]);
+        $usuario->save();
+
+        return redirect()->route('usuarios.index');
     }
 
     /**
@@ -59,7 +79,7 @@ class UsuarioCtrl extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('usuarios.createUpdate')->with('usuario', Usuario::find($id));
     }
 
     /**
